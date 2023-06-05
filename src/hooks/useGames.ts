@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 import useData from "./useData";
 import { Genre } from "./useGenre";
+import { GameQuery } from "../App";
 
 export interface Platform{
 	id:number;
@@ -18,10 +19,10 @@ export interface Game{
 	metacritic:number;
 }
 
-const useGames=(selectedGenre:Genre |null, selectedPlatform:Platform |null)=>useData<Game>('./games',{params:{
-	genres:selectedGenre?.id , 
-	platforms:selectedPlatform?.id
+const useGames=(gameQuery:GameQuery)=>useData<Game>('./games',{params:{
+	genres:gameQuery.genre?.id , 
+	platforms:gameQuery.platform?.id
 }},
-[selectedGenre?.id,selectedPlatform?.id])
+[gameQuery])
 
 export default useGames
